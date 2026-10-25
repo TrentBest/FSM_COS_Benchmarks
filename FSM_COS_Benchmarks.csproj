@@ -16,6 +16,6 @@
     <ProjectReference Include="$(FsmCosSourceProject)" />
   </ItemGroup>
   <ItemGroup Condition="'$(FsmCosSourceProject)' == ''">
-    <PackageReference Include="TheSingularityWorkshop.FSM_COS" Version="0.1.0-alpha.7" />
+    <PackageReference Include="TheSingularityWorkshop.FSM_COS" Version="0.1.0-alpha.6" />
   </ItemGroup>
 </Project>
