@@ -1,12 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <AssemblyName>FSM_COS.Benchmarks</AssemblyName>
+    <RootNamespace>FSM_COS_Benchmarks</RootNamespace>
+    <FsmCosSourceProject Condition="'$(FsmCosSourceProject)' == '' and Exists('source/src/FSM_COS/FSM_COS.csproj')">source/src/FSM_COS/FSM_COS.csproj</FsmCosSourceProject>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.15.2" />
-    <PackageReference Include="Microsoft.VisualStudio.DiagnosticsHub.BenchmarkDotNetDiagnosers" Version="18.7.37220.1" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(FsmCosSourceProject)' != ''">
+    <ProjectReference Include="$(FsmCosSourceProject)" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(FsmCosSourceProject)' == ''">
+    <PackageReference Include="TheSingularityWorkshop.FSM_COS" Version="0.1.0-alpha.7" />
   </ItemGroup>
 </Project>
