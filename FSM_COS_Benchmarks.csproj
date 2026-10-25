@@ -10,6 +10,9 @@
     <FsmCosSourceProject Condition="'$(FsmCosSourceProject)' == '' and Exists('source/src/FSM_COS/FSM_COS.csproj')">source/src/FSM_COS/FSM_COS.csproj</FsmCosSourceProject>
   </PropertyGroup>
   <ItemGroup>
+    <!-- The FSM_COS checkout lives beneath this project for CI, but must compile
+         only through ProjectReference, never through this project's default globs. -->
+    <Compile Remove="source/**/*.cs" />
     <PackageReference Include="BenchmarkDotNet" Version="0.15.2" />
   </ItemGroup>
   <ItemGroup Condition="'$(FsmCosSourceProject)' != ''">
