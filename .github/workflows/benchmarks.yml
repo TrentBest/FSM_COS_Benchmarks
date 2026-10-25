@@ -61,11 +61,14 @@ jobs:
       - name: Restore benchmark harness and source under test
         run: dotnet restore FSM_COS_Benchmarks.slnx -p:FsmCosSourceProject=source/src/FSM_COS/FSM_COS.csproj
 
-      - name: Build benchmark harness and current FSM_COS source
-        run: dotnet build FSM_COS_Benchmarks.slnx --configuration Release --no-restore -p:FsmCosSourceProject=source/src/FSM_COS/FSM_COS.csproj
+      - name: Build FSM_COS source under test in Release
+        run: dotnet build source/src/FSM_COS/FSM_COS.csproj --configuration Release --no-restore
+
+      - name: Build benchmark harness in Release
+        run: dotnet build FSM_COS_Benchmarks.csproj --configuration Release --no-restore -p:FsmCosSourceProject=source/src/FSM_COS/FSM_COS.csproj -p:BuildProjectReferences=false
 
       - name: Run stable-ID benchmark suite
-        run: dotnet run --project FSM_COS_Benchmarks.csproj --configuration Release --no-build -p:FsmCosSourceProject=source/src/FSM_COS/FSM_COS.csproj -- --filter "*COS_*"
+        run: dotnet bin/Release/net8.0/FSM_COS.Benchmarks.dll --filter "*COS_*"
 
       - name: Preserve raw benchmark evidence
         if: always()
