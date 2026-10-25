@@ -1,32 +1,34 @@
-﻿// -----------------------------------------------------------------------
-// Copyright (c) Microsoft Corporation.  All rights reserved.
-// -----------------------------------------------------------------------
-
 using BenchmarkDotNet.Attributes;
-using Microsoft.VSDiagnostics;
-using System;
-using System.Security.Cryptography;
+using BenchmarkDotNet.Jobs;
+using TheSingularityWorkshop.FSM_COS;
 
-namespace FSM_COS_Benchmarks
+namespace FSM_COS_Benchmarks;
+
+[MemoryDiagnoser]
+[ShortRunJob]
+public class ManifestBenchmarks
 {
-    // For more information on the VS BenchmarkDotNet Diagnosers see https://learn.microsoft.com/visualstudio/profiling/profiling-with-benchmark-dotnet
-    [CPUUsageDiagnoser]
-    public class Benchmarks
+    private MicroBundleManifestEntry[] _roots = Array.Empty<MicroBundleManifestEntry>();
+
+    [Params(1, 10, 100, 1000)]
+    public int BundleCount { get; set; }
+
+    [GlobalSetup]
+    public void Setup() =>
+        _roots = Enumerable.Range(1, BundleCount)
+            .Select(index => new MicroBundleManifestEntry((ulong)index, "1.0.0-benchmark"))
+            .ToArray();
+
+    [Benchmark(Description = "COS-MAN-001 Build roots and construct runtime manifest")]
+    public RuntimeManifest COS_MAN_001_BuildRootsAndConstructRuntimeManifest()
     {
-        private SHA256 sha256 = SHA256.Create();
-        private byte[] data;
-
-        [GlobalSetup]
-        public void Setup()
-        {
-            data = new byte[10000];
-            new Random(42).NextBytes(data);
-        }
-
-        [Benchmark]
-        public byte[] Sha256()
-        {
-            return sha256.ComputeHash(data);
-        }
+        var roots = Enumerable.Range(1, BundleCount)
+            .Select(index => new MicroBundleManifestEntry((ulong)index, "1.0.0-benchmark"))
+            .ToArray();
+        return new RuntimeManifest(1, roots);
     }
+
+    [Benchmark(Description = "COS-MAN-002 Construct runtime manifest from prepared roots")]
+    public RuntimeManifest COS_MAN_002_ConstructRuntimeManifestFromPreparedRoots() =>
+        new(1, _roots);
 }
