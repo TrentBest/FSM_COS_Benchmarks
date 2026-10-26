@@ -68,7 +68,29 @@ jobs:
         run: dotnet build FSM_COS_Benchmarks.csproj --configuration Release --no-restore -p:FsmCosSourceProject=source/src/FSM_COS/FSM_COS.csproj -p:BuildProjectReferences=false
 
       - name: Run stable-ID benchmark suite
-        run: dotnet bin/Release/net8.0/FSM_COS.Benchmarks.dll --filter "*COS_*"
+        shell: pwsh
+        run: |
+          dotnet bin/Release/net8.0/FSM_COS_Benchmarks.dll --filter "*COS_*"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          $reports = Get-ChildItem "BenchmarkDotNet.Artifacts/results/*-report.csv" -ErrorAction SilentlyContinue
+          if (-not $reports -or $reports.Count -lt 1) {
+            throw "BenchmarkDotNet produced no CSV result reports."
+          }
+
+          $rows = @($reports | ForEach-Object { Import-Csv $_.FullName })
+          if ($rows.Count -lt 21) {
+            throw "Expected at least 21 parameterized benchmark result rows; found $($rows.Count)."
+          }
+
+          $invalid = @($rows | Where-Object {
+            -not $_.Mean -or $_.Mean.Trim() -eq "" -or $_.Mean.Trim() -eq "NA"
+          })
+          if ($invalid.Count -gt 0) {
+            throw "BenchmarkDotNet emitted $($invalid.Count) result rows without a valid Mean. Treating this run as failed."
+          }
+
+          "Validated $($rows.Count) measured benchmark rows across $($reports.Count) CSV reports."
 
       - name: Preserve raw benchmark evidence
         if: always()
