@@ -34,10 +34,13 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 | COS-DEP-001 | WideDependencyFanOutBenchmarks.COS_DEP_001_ComposeWideDependencyFanOut | Compose one requested root whose dependency list fans out to independent leaf bundles; graph setup excluded | 1, 10, 100, 1,000 dependencies |
 | COS-ERR-001 | FailureBenchmarks.COS_ERR_001_TryExecuteUnresolvedRoot | Run non-throwing composition API for a missing requested root | One missing root |\n| COS-ERR-002 | MissingDependencyBenchmarks.COS_ERR_002_TryExecuteMissingDependency | Run non-throwing composition API when the requested root exists but its dependency is absent from the catalog | One root, one missing dependency |
 | COS-LOAD-001 | LoadCallbackBenchmarks.COS_LOAD_001_ComposeRootsWithStatefulLoadCallbacks | Compose independent roots whose Load callbacks mutate bundle-local state; graph and manifest prepared in global setup | 1, 10, 100, 1,000 roots |
+| COS-RT-001 | RuntimeLookupBenchmarks.COS_RT_001_RuntimeAssemblyTryGetBundle | Retrieve the final bundle ID from an already composed RuntimeAssembly using its public TryGetBundle API | 1, 10, 100, 1,000 bundles |
+| COS-RT-002 | RuntimeLookupBenchmarks.COS_RT_002_HostDictionaryLookup | Retrieve the same final bundle ID through a host-prepared dictionary index; index construction excluded | 1, 10, 100, 1,000 bundles |
+| COS-RT-003 | RuntimeLookupBenchmarks.COS_RT_003_HostLinearBundleScan | Retrieve the same final bundle ID by an explicit host-side scan of RuntimeAssembly.Bundles | 1, 10, 100, 1,000 bundles |
 
 Timed methods return results to BenchmarkDotNet. MemoryDiagnoser records managed allocation and GC data. ShortRunJob is an initial CI-friendly sampling profile, not a final publication-quality protocol. Re-run apparent regressions with a longer, controlled job before making a performance claim.
 
-## Planned coverage queue
+Runtime lookup benchmarks intentionally put composition in global setup. They compare the public assembly lookup with two host-side reference strategies; dictionary construction is not charged to each lookup. These are lookup microbenchmarks, not a claim that FSM_COS owns or adds per-tick execution overhead.\n\n## Planned coverage queue
 
 Add each item as a separately named definition only after its workload contract and equivalence checks are explicit.
 
