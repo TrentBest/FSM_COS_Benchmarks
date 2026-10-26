@@ -79,8 +79,36 @@ jobs:
           }
 
           $rows = @($reports | ForEach-Object { Import-Csv $_.FullName })
-          if ($rows.Count -lt 50) {
-            throw "Expected at least 50 parameterized benchmark result rows; found $($rows.Count)."
+          $expected = [ordered]@{
+            "COS-CAT-001" = 4
+            "COS-CAT-002" = 4
+            "COS-CAT-003" = 4
+            "COS-CAT-004" = 4
+            "COS-MAN-001" = 4
+            "COS-MAN-002" = 4
+            "COS-MAN-003" = 4
+            "COS-CMP-001" = 1
+            "COS-CMP-002" = 4
+            "COS-CMP-003" = 3
+            "COS-CMP-004" = 4
+            "COS-DEP-001" = 4
+            "COS-ERR-001" = 1
+            "COS-ERR-002" = 1
+            "COS-LOAD-001" = 4
+          }
+
+          if ($rows.Count -ne 50) {
+            throw "Expected exactly 50 measured benchmark rows from the catalog; found $($rows.Count)."
+          }
+
+          foreach ($id in $expected.Keys) {
+            $matching = @($rows | Where-Object {
+              (($_.PSObject.Properties | ForEach-Object { [string]$_.Value }) -join " ") -match [regex]::Escape($id.Replace("-", "_")) -or
+              (($_.PSObject.Properties | ForEach-Object { [string]$_.Value }) -join " ") -match [regex]::Escape($id)
+            })
+            if ($matching.Count -ne $expected[$id]) {
+              throw "$id expected $($expected[$id]) result rows but found $($matching.Count)."
+            }
           }
 
           $invalid = @($rows | Where-Object {
@@ -90,7 +118,7 @@ jobs:
             throw "BenchmarkDotNet emitted $($invalid.Count) result rows without a valid Mean. Treating this run as failed."
           }
 
-          "Validated $($rows.Count) measured benchmark rows across $($reports.Count) CSV reports."
+          "Validated all $($rows.Count) expected benchmark rows across $($reports.Count) CSV reports; stable IDs and per-ID row counts matched the catalog."
 
       - name: Preserve raw benchmark evidence
         if: always()
