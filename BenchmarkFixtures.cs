@@ -86,4 +86,21 @@ internal static class BenchmarkWorkloads
             .ToArray();
         return (IndependentRoots(rootCount), new BenchmarkCatalog(bundles));
     }
+
+    public static (RuntimeManifest Manifest, BenchmarkCatalog Catalog) WideDependencyFanOut(int dependencyCount)
+    {
+        var dependencyIds = Enumerable.Range(2, dependencyCount)
+            .Select(index => (ulong)index)
+            .ToArray();
+        var bundles = new List<BenchmarkBundle>(dependencyCount + 1)
+        {
+            new(1, dependencyIds)
+        };
+        bundles.AddRange(dependencyIds.Select(id => new BenchmarkBundle(id)));
+
+        var manifest = new RuntimeManifest(
+            1,
+            new[] { new MicroBundleManifestEntry(1, "1.0.0-benchmark") });
+        return (manifest, new BenchmarkCatalog(bundles));
+    }
 }
