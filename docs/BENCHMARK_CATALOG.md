@@ -28,6 +28,7 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 | COS-CMP-004 | SharedDependencyBenchmarks.COS_CMP_004_ComposeSharedDependency | Compose multiple requested roots that all depend on one shared bundle | 1, 10, 100, 1,000 roots plus one shared dependency |
 | COS-DEP-001 | WideDependencyFanOutBenchmarks.COS_DEP_001_ComposeWideDependencyFanOut | Compose one requested root whose dependency list fans out to independent leaf bundles; graph setup excluded | 1, 10, 100, 1,000 dependencies |
 | COS-ERR-001 | FailureBenchmarks.COS_ERR_001_TryExecuteUnresolvedRoot | Run non-throwing composition API for a missing requested root | One missing root |\n| COS-ERR-002 | MissingDependencyBenchmarks.COS_ERR_002_TryExecuteMissingDependency | Run non-throwing composition API when the requested root exists but its dependency is absent from the catalog | One root, one missing dependency |
+| COS-LOAD-001 | LoadCallbackBenchmarks.COS_LOAD_001_ComposeRootsWithStatefulLoadCallbacks | Compose independent roots whose Load callbacks mutate bundle-local state; graph and manifest prepared in global setup | 1, 10, 100, 1,000 roots |
 
 Timed methods return results to BenchmarkDotNet. MemoryDiagnoser records managed allocation and GC data. ShortRunJob is an initial CI-friendly sampling profile, not a final publication-quality protocol. Re-run apparent regressions with a longer, controlled job before making a performance claim.
 
@@ -40,7 +41,7 @@ Add each item as a separately named definition only after its workload contract 
 | COS-MAN | Empty-manifest fast path; staged-plan validation is now covered at 1, 10, 100, and 1,000 roots; immutable snapshot and validation overhead beyond this path |
 | COS-CAT | Catalog lookup success/miss, version match/mismatch, dictionary scale and lookup counts |
 | COS-DEP | Multiple roots, deep chains, shared dependency closure, duplicate roots, duplicate/conflicting versions |
-| COS-LOAD | Load callback cost, configuration retrieval/copy, configuration size, load-order bookkeeping |
+| COS-LOAD | Stateful Load callbacks now covered at 1, 10, 100, and 1,000 roots; configuration retrieval/copy, configuration size, load-order bookkeeping |
 | COS-ARB | Stable first-round arbitration, multi-round convergence, near-limit convergence and non-convergence/failure reporting |
 | COS-ERR | Request validation, invalid graph/cycle, load failure and rollback/compensation paths; missing root and missing dependency are now covered |
 | COS-RES | Resource bounds, configuration byte bounds, large manifest/dependency inputs |
