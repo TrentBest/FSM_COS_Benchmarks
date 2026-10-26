@@ -17,6 +17,11 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 
 ## Implemented benchmark definitions
 
+| COS-CAT-001 | CatalogLookupBenchmarks.COS_CAT_001_ResolveExistingBundleById | Resolve a prepared existing bundle by ID through the dictionary-backed benchmark catalog | 1, 10, 100, 1,000 catalog entries |
+| COS-CAT-002 | CatalogLookupBenchmarks.COS_CAT_002_ResolveExistingBundleByMatchingVersion | Resolve a prepared existing bundle by ID and exact version | 1, 10, 100, 1,000 catalog entries |
+| COS-CAT-003 | CatalogLookupBenchmarks.COS_CAT_003_MissAbsentBundleId | Resolve an absent bundle ID through the benchmark catalog | 1, 10, 100, 1,000 catalog entries |
+| COS-CAT-004 | CatalogLookupBenchmarks.COS_CAT_004_RejectVersionMismatch | Resolve an existing ID with a non-matching version | 1, 10, 100, 1,000 catalog entries |
+
 | Stable ID | Benchmark method | Measurement boundary | Workload parameters |
 |---|---|---|---|
 | COS-MAN-001 | ManifestBenchmarks.COS_MAN_001_BuildRootsAndConstructRuntimeManifest | Allocate root-entry array and construct RuntimeManifest inside the timed method | 1, 10, 100, 1,000 roots |
