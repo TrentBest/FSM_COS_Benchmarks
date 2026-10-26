@@ -9,7 +9,7 @@ namespace FSM_COS_Benchmarks;
 /// </summary>
 [MemoryDiagnoser]
 [ShortRunJob]
-public sealed class CatalogLookupBenchmarks
+public class CatalogLookupBenchmarks
 {
     private BenchmarkCatalog _catalog = null!;
     private ulong _hitId;
