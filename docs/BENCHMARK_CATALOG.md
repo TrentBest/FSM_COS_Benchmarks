@@ -24,7 +24,8 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 | COS-CMP-001 | EmptyManifestBenchmarks.COS_CMP_001_ExecuteEmptyManifest | Execute an empty manifest against an empty in-memory catalog | Empty |
 | COS-CMP-002 | CompositionBenchmarks.COS_CMP_002_ComposeIndependentRoots | Execute independent root bundles; catalog, bundles, and manifest prepared in global setup | 1, 10, 100, 1,000 roots |
 | COS-CMP-003 | DependencyChainBenchmarks.COS_CMP_003_ComposeDependencyChain | Resolve and compose a linear dependency chain from one requested root; setup excluded | 1, 10, 100 bundles |
-| COS-CMP-004 | SharedDependencyBenchmarks.COS_CMP_004_ComposeSharedDependency | Compose multiple requested roots that all depend on one shared bundle | 1, 10, 100, 1,000 roots plus one shared dependency |\n| COS-DEP-001 | WideDependencyFanOutBenchmarks.COS_DEP_001_ComposeWideDependencyFanOut | Compose one requested root whose dependency list fans out to independent leaf bundles; graph setup excluded | 1, 10, 100, 1,000 dependencies |
+| COS-CMP-004 | SharedDependencyBenchmarks.COS_CMP_004_ComposeSharedDependency | Compose multiple requested roots that all depend on one shared bundle | 1, 10, 100, 1,000 roots plus one shared dependency |
+| COS-DEP-001 | WideDependencyFanOutBenchmarks.COS_DEP_001_ComposeWideDependencyFanOut | Compose one requested root whose dependency list fans out to independent leaf bundles; graph setup excluded | 1, 10, 100, 1,000 dependencies |
 | COS-ERR-001 | FailureBenchmarks.COS_ERR_001_TryExecuteUnresolvedRoot | Run non-throwing composition API for a missing requested root | One missing root |
 
 Timed methods return results to BenchmarkDotNet. MemoryDiagnoser records managed allocation and GC data. ShortRunJob is an initial CI-friendly sampling profile, not a final publication-quality protocol. Re-run apparent regressions with a longer, controlled job before making a performance claim.
