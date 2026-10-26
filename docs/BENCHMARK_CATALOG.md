@@ -37,6 +37,8 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 | COS-RT-001 | RuntimeLookupBenchmarks.COS_RT_001_RuntimeAssemblyTryGetBundle | Retrieve the final bundle ID from an already composed RuntimeAssembly using its public TryGetBundle API | 1, 10, 100, 1,000 bundles |
 | COS-RT-002 | RuntimeLookupBenchmarks.COS_RT_002_HostDictionaryLookup | Retrieve the same final bundle ID through a host-prepared dictionary index; index construction excluded | 1, 10, 100, 1,000 bundles |
 | COS-RT-003 | RuntimeLookupBenchmarks.COS_RT_003_HostLinearBundleScan | Retrieve the same final bundle ID by an explicit host-side scan of RuntimeAssembly.Bundles | 1, 10, 100, 1,000 bundles |
+| COS-RT-004 | RuntimeLookupBenchmarks.COS_RT_004_RuntimeAssemblyTypedLookupById | Retrieve the final bundle ID through RuntimeAssembly typed generic lookup | 1, 10, 100, 1,000 bundles |
+| COS-RT-005 | RuntimeLookupBenchmarks.COS_RT_005_RuntimeAssemblyTypedLookupByType | Retrieve the first bundle of the requested concrete type from RuntimeAssembly | 1, 10, 100, 1,000 bundles |
 
 Timed methods return results to BenchmarkDotNet. MemoryDiagnoser records managed allocation and GC data. ShortRunJob is an initial CI-friendly sampling profile, not a final publication-quality protocol. Re-run apparent regressions with a longer, controlled job before making a performance claim.
 

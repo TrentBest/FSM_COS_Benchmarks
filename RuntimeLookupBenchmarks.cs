@@ -39,6 +39,14 @@ public class RuntimeLookupBenchmarks
     public bool COS_RT_002_HostDictionaryLookup() =>
         _directIndex.TryGetValue(_targetId, out _);
 
+    [Benchmark(Description = "COS-RT-004 RuntimeAssembly typed lookup by ID")]
+    public bool COS_RT_004_RuntimeAssemblyTypedLookupById() =>
+        _assembly.TryGetBundle<BenchmarkBundle>(_targetId, out _);
+
+    [Benchmark(Description = "COS-RT-005 RuntimeAssembly typed lookup by type")]
+    public bool COS_RT_005_RuntimeAssemblyTypedLookupByType() =>
+        _assembly.TryGetBundle<BenchmarkBundle>(out _);
+
     [Benchmark(Description = "COS-RT-003 Host linear bundle scan")]
     public bool COS_RT_003_HostLinearBundleScan()
     {

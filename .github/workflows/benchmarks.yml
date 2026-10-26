@@ -98,10 +98,12 @@ jobs:
             "COS-RT-001" = 4
             "COS-RT-002" = 4
             "COS-RT-003" = 4
+            "COS-RT-004" = 4
+            "COS-RT-005" = 4
           }
 
-          if ($rows.Count -ne 62) {
-            throw "Expected exactly 62 measured benchmark rows from the catalog; found $($rows.Count)."
+          if ($rows.Count -ne 70) {
+            throw "Expected exactly 70 measured benchmark rows from the catalog; found $($rows.Count)."
           }
 
           foreach ($id in $expected.Keys) {
