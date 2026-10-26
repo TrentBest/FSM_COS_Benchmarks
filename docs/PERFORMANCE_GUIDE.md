@@ -78,6 +78,38 @@ Current policy:
 - Do not fail CI on timing changes until the baseline and regression policy can distinguish noise from a real regression.
 - Keep composition cost separate from per-frame/per-tick runtime cost. FSM_COS composes a runtime; the host owns the steady-state update loop.
 
+## RuntimeAssembly lookup: position and miss costs
+
+The runtime-lookup suite now separates successful lookup position from misses. Run 40408424494 passed the harness's structural validation: 94 expected rows across 12 CSV reports. The artifact is retained for 90 days.
+
+- [CI run and artifact](https://github.com/TrentBest/FSM_COS_Benchmarks/actions/runs/40408424494)
+- [Harness commit](https://github.com/TrentBest/FSM_COS_Benchmarks/commit/2e6741438d960b6e12ed07cecf775f953d84794c)
+- [FSM_COS indexed-lookup investigation](https://github.com/TrentBest/TheSingularityWorkshop.FSM_COS/issues/42)
+
+Exploratory means for untyped ID lookup:
+
+| Bundle count | First ID | Middle ID | Missing ID |
+|---:|---:|---:|---:|
+| 1 | 27.6 ns | 27.4 ns | 28.7 ns |
+| 10 | 27.9 ns | 42.2 ns | 60.6 ns |
+| 100 | 27.8 ns | 209.2 ns | 395.5 ns |
+| 1,000 | 27.9 ns | 1.65 µs | 3.46 µs |
+
+Typed lookup by ID shows a larger scan cost in this fixture:
+
+| Bundle count | Typed first ID | Typed middle ID | Typed missing ID |
+|---:|---:|---:|---:|
+| 1 | 56.2 ns | 56.1 ns | 62.7 ns |
+| 10 | 56.9 ns | 99.4 ns | 165.7 ns |
+| 100 | 58.1 ns | 615.9 ns | 1.24 µs |
+| 1,000 | 53.3 ns | 5.22 µs | 10.54 µs |
+
+The reported allocation is 120 B/op for untyped ID lookup and 176 B/op for typed ID lookup, independent of target position in this run. These values describe the current implementation and benchmark fixture, not the cost of a future indexed implementation.
+
+**Interpretation:** early hits remain almost flat as assembly size grows, while middle hits and misses rise with bundle count. The typed overload is more expensive because it filters by type (OfType<TBundle>) before matching the ID. At 1,000 bundles, a typed miss is about 10.5 µs versus 3.46 µs for an untyped miss.
+
+**Next decision:** evaluate a private ID index built once per RuntimeAssembly, but only after confirming duplicate-ID semantics, deterministic behavior, immutability, and retained-memory cost. A dictionary lookup in a benchmark is a useful comparison point, not proof that an index is automatically worth its construction and memory cost. The current three-iteration ShortRun and virtualized runner make these results an optimization signal, not a production guarantee.
+
 ## The metaDev direction
 
 The long-term objective is for every component to have a verifiable performance profile: stable workload identity, declared environment, latency distribution, allocation and GC costs, scaling curves, and comparison against equivalent alternatives. A future metaDev tool can collect this evidence across projects and versions, flag statistically credible regressions, and show the trade-off between performance and capabilities.
