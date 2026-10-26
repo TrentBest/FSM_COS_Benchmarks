@@ -37,7 +37,7 @@ The source project can still use its declared package dependencies; this overrid
 
 Every run writes BenchmarkDotNet.Artifacts/BenchmarkRunIdentity.txt. CI also records both the benchmark-harness commit and the FSM_COS source commit, plus .NET, OS, CPU, and runner details. Workflow artifacts are named by run ID, attempt, and harness commit so separate executions are not silently conflated.
 
-See [the benchmark catalog](docs/BENCHMARK_CATALOG.md) for permanent IDs, timed boundaries, parameters, and the planned coverage queue.
+See [the benchmark catalog](docs/BENCHMARK_CATALOG.md) for permanent IDs, timed boundaries, parameters, and the planned coverage queue. Read [Understanding FSM_COS Performance](docs/PERFORMANCE_GUIDE.md) for practical interpretation of nanoseconds, allocations, uncertainty, and fair comparisons with other implementations.
 
 ## Repository policy
 
