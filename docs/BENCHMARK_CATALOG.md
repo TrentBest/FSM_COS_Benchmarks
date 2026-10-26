@@ -39,6 +39,12 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 | COS-RT-003 | RuntimeLookupBenchmarks.COS_RT_003_HostLinearBundleScan | Retrieve the same final bundle ID by an explicit host-side scan of RuntimeAssembly.Bundles | 1, 10, 100, 1,000 bundles |
 | COS-RT-004 | RuntimeLookupBenchmarks.COS_RT_004_RuntimeAssemblyTypedLookupById | Retrieve the final bundle ID through RuntimeAssembly typed generic lookup | 1, 10, 100, 1,000 bundles |
 | COS-RT-005 | RuntimeLookupBenchmarks.COS_RT_005_RuntimeAssemblyTypedLookupByType | Retrieve the first bundle of the requested concrete type from RuntimeAssembly | 1, 10, 100, 1,000 bundles |
+| COS-RT-006 | RuntimeLookupBenchmarks.COS_RT_006_RuntimeAssemblyLookupFirstId | Retrieve the first bundle ID through the untyped public lookup API | 1, 10, 100, 1,000 bundles |
+| COS-RT-007 | RuntimeLookupBenchmarks.COS_RT_007_RuntimeAssemblyLookupMiddleId | Retrieve the middle bundle ID through the untyped public lookup API | 1, 10, 100, 1,000 bundles |
+| COS-RT-008 | RuntimeLookupBenchmarks.COS_RT_008_RuntimeAssemblyLookupMissingId | Search for a bundle ID absent from the composed assembly through the untyped public lookup API | 1, 10, 100, 1,000 bundles |
+| COS-RT-009 | RuntimeLookupBenchmarks.COS_RT_009_RuntimeAssemblyTypedLookupFirstId | Retrieve the first bundle ID through the typed generic lookup API | 1, 10, 100, 1,000 bundles |
+| COS-RT-010 | RuntimeLookupBenchmarks.COS_RT_010_RuntimeAssemblyTypedLookupMiddleId | Retrieve the middle bundle ID through the typed generic lookup API | 1, 10, 100, 1,000 bundles |
+| COS-RT-011 | RuntimeLookupBenchmarks.COS_RT_011_RuntimeAssemblyTypedLookupMissingId | Search for a bundle ID absent from the composed assembly through the typed generic lookup API | 1, 10, 100, 1,000 bundles |
 
 Timed methods return results to BenchmarkDotNet. MemoryDiagnoser records managed allocation and GC data. ShortRunJob is an initial CI-friendly sampling profile, not a final publication-quality protocol. Re-run apparent regressions with a longer, controlled job before making a performance claim.
 

@@ -17,6 +17,9 @@ public class RuntimeLookupBenchmarks
     private RuntimeAssembly _assembly = null!;
     private Dictionary<ulong, IMicroBundle> _directIndex = null!;
     private ulong _targetId;
+    private ulong _firstTargetId;
+    private ulong _middleTargetId;
+    private ulong _missingTargetId;
 
     [Params(1, 10, 100, 1000)]
     public int BundleCount { get; set; }
@@ -29,6 +32,9 @@ public class RuntimeLookupBenchmarks
         _directIndex = _assembly.Bundles.ToDictionary(bundle => bundle.Id);
         // Search for the final ID to expose the scaling of RuntimeAssembly's linear lookup.
         _targetId = (ulong)BundleCount;
+        _firstTargetId = 1;
+        _middleTargetId = (ulong)((BundleCount + 1) / 2);
+        _missingTargetId = (ulong)BundleCount + 1;
     }
 
     [Benchmark(Description = "COS-RT-001 RuntimeAssembly TryGetBundle")]
@@ -46,6 +52,30 @@ public class RuntimeLookupBenchmarks
     [Benchmark(Description = "COS-RT-005 RuntimeAssembly typed lookup by type")]
     public bool COS_RT_005_RuntimeAssemblyTypedLookupByType() =>
         _assembly.TryGetBundle<BenchmarkBundle>(out _);
+
+    [Benchmark(Description = "COS-RT-006 RuntimeAssembly lookup first ID")]
+    public bool COS_RT_006_RuntimeAssemblyLookupFirstId() =>
+        _assembly.TryGetBundle(_firstTargetId, out _);
+
+    [Benchmark(Description = "COS-RT-007 RuntimeAssembly lookup middle ID")]
+    public bool COS_RT_007_RuntimeAssemblyLookupMiddleId() =>
+        _assembly.TryGetBundle(_middleTargetId, out _);
+
+    [Benchmark(Description = "COS-RT-008 RuntimeAssembly lookup missing ID")]
+    public bool COS_RT_008_RuntimeAssemblyLookupMissingId() =>
+        _assembly.TryGetBundle(_missingTargetId, out _);
+
+    [Benchmark(Description = "COS-RT-009 RuntimeAssembly typed lookup first ID")]
+    public bool COS_RT_009_RuntimeAssemblyTypedLookupFirstId() =>
+        _assembly.TryGetBundle<BenchmarkBundle>(_firstTargetId, out _);
+
+    [Benchmark(Description = "COS-RT-010 RuntimeAssembly typed lookup middle ID")]
+    public bool COS_RT_010_RuntimeAssemblyTypedLookupMiddleId() =>
+        _assembly.TryGetBundle<BenchmarkBundle>(_middleTargetId, out _);
+
+    [Benchmark(Description = "COS-RT-011 RuntimeAssembly typed lookup missing ID")]
+    public bool COS_RT_011_RuntimeAssemblyTypedLookupMissingId() =>
+        _assembly.TryGetBundle<BenchmarkBundle>(_missingTargetId, out _);
 
     [Benchmark(Description = "COS-RT-003 Host linear bundle scan")]
     public bool COS_RT_003_HostLinearBundleScan()
