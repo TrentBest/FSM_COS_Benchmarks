@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
-    <AssemblyName>FSM_COS.Benchmarks</AssemblyName>
+    <AssemblyName>FSM_COS_Benchmarks</AssemblyName>
     <RootNamespace>FSM_COS_Benchmarks</RootNamespace>
     <FsmCosSourceProject Condition="'$(FsmCosSourceProject)' == '' and Exists('source/src/FSM_COS/FSM_COS.csproj')">source/src/FSM_COS/FSM_COS.csproj</FsmCosSourceProject>
   </PropertyGroup>
