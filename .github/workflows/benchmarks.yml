@@ -79,8 +79,8 @@ jobs:
           }
 
           $rows = @($reports | ForEach-Object { Import-Csv $_.FullName })
-          if ($rows.Count -lt 30) {
-            throw "Expected at least 30 parameterized benchmark result rows; found $($rows.Count)."
+          if ($rows.Count -lt 34) {
+            throw "Expected at least 34 parameterized benchmark result rows; found $($rows.Count)."
           }
 
           $invalid = @($rows | Where-Object {
