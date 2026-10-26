@@ -21,6 +21,7 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 |---|---|---|---|
 | COS-MAN-001 | ManifestBenchmarks.COS_MAN_001_BuildRootsAndConstructRuntimeManifest | Allocate root-entry array and construct RuntimeManifest inside the timed method | 1, 10, 100, 1,000 roots |
 | COS-MAN-002 | ManifestBenchmarks.COS_MAN_002_ConstructRuntimeManifestFromPreparedRoots | Construct RuntimeManifest from root entries prepared in global setup | 1, 10, 100, 1,000 roots |
+| COS-MAN-003 | StagedManifestValidationBenchmarks.COS_MAN_003_ValidateStagedRuntimeManifestLoadPlan | Validate a staged load plan against requested root IDs and versions; all manifest inputs prepared in global setup | 1, 10, 100, 1,000 roots |
 | COS-CMP-001 | EmptyManifestBenchmarks.COS_CMP_001_ExecuteEmptyManifest | Execute an empty manifest against an empty in-memory catalog | Empty |
 | COS-CMP-002 | CompositionBenchmarks.COS_CMP_002_ComposeIndependentRoots | Execute independent root bundles; catalog, bundles, and manifest prepared in global setup | 1, 10, 100, 1,000 roots |
 | COS-CMP-003 | DependencyChainBenchmarks.COS_CMP_003_ComposeDependencyChain | Resolve and compose a linear dependency chain from one requested root; setup excluded | 1, 10, 100 bundles |
@@ -36,7 +37,7 @@ Add each item as a separately named definition only after its workload contract 
 
 | Family | Planned coverage |
 |---|---|
-| COS-MAN | Staged-plan validation at empty/small/large sizes; immutable snapshot and validation overhead |
+| COS-MAN | Empty-manifest fast path; staged-plan validation is now covered at 1, 10, 100, and 1,000 roots; immutable snapshot and validation overhead beyond this path |
 | COS-CAT | Catalog lookup success/miss, version match/mismatch, dictionary scale and lookup counts |
 | COS-DEP | Multiple roots, deep chains, shared dependency closure, duplicate roots, duplicate/conflicting versions |
 | COS-LOAD | Load callback cost, configuration retrieval/copy, configuration size, load-order bookkeeping |
