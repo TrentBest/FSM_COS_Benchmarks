@@ -4,7 +4,7 @@
 
 A dedicated, repeatable performance laboratory for **FSM_COS**: manifest construction, runtime composition, dependency graph shapes, failure paths, allocations, and scaling behavior.
 
-**Current status:** the initial named suite is being established in this repository. Benchmark definitions exist; do not treat timings as a baseline until a successful run's raw artifacts have been reviewed.
+**Current status:** the initial suite has completed a real CI run against FSM_COS development source. Its measurements are exploratory, not a performance baseline. The suite is expanding by stable-ID workload families; newly added cases must pass CI and have their artifacts reviewed before being considered validated.
 
 ## Design goals
 
