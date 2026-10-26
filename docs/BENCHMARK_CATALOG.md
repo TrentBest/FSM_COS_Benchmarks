@@ -27,7 +27,7 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 | COS-CMP-003 | DependencyChainBenchmarks.COS_CMP_003_ComposeDependencyChain | Resolve and compose a linear dependency chain from one requested root; setup excluded | 1, 10, 100 bundles |
 | COS-CMP-004 | SharedDependencyBenchmarks.COS_CMP_004_ComposeSharedDependency | Compose multiple requested roots that all depend on one shared bundle | 1, 10, 100, 1,000 roots plus one shared dependency |
 | COS-DEP-001 | WideDependencyFanOutBenchmarks.COS_DEP_001_ComposeWideDependencyFanOut | Compose one requested root whose dependency list fans out to independent leaf bundles; graph setup excluded | 1, 10, 100, 1,000 dependencies |
-| COS-ERR-001 | FailureBenchmarks.COS_ERR_001_TryExecuteUnresolvedRoot | Run non-throwing composition API for a missing requested root | One missing root |
+| COS-ERR-001 | FailureBenchmarks.COS_ERR_001_TryExecuteUnresolvedRoot | Run non-throwing composition API for a missing requested root | One missing root |\n| COS-ERR-002 | MissingDependencyBenchmarks.COS_ERR_002_TryExecuteMissingDependency | Run non-throwing composition API when the requested root exists but its dependency is absent from the catalog | One root, one missing dependency |
 
 Timed methods return results to BenchmarkDotNet. MemoryDiagnoser records managed allocation and GC data. ShortRunJob is an initial CI-friendly sampling profile, not a final publication-quality protocol. Re-run apparent regressions with a longer, controlled job before making a performance claim.
 
@@ -42,7 +42,7 @@ Add each item as a separately named definition only after its workload contract 
 | COS-DEP | Multiple roots, deep chains, shared dependency closure, duplicate roots, duplicate/conflicting versions |
 | COS-LOAD | Load callback cost, configuration retrieval/copy, configuration size, load-order bookkeeping |
 | COS-ARB | Stable first-round arbitration, multi-round convergence, near-limit convergence and non-convergence/failure reporting |
-| COS-ERR | Request validation, missing dependency, invalid graph/cycle, load failure and rollback/compensation paths |
+| COS-ERR | Request validation, invalid graph/cycle, load failure and rollback/compensation paths; missing root and missing dependency are now covered |
 | COS-RES | Resource bounds, configuration byte bounds, large manifest/dependency inputs |
 | COS-E2E | Direct workload versus equivalent MicroBundle composition; startup/composition separated from steady-state execution and teardown |
 | COS-CON | Concurrency only where a real concurrent host workload exists; FSM_COS composition is not assumed thread-safe |
