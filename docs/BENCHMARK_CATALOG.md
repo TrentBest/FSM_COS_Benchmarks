@@ -24,6 +24,8 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 | COS-CAT-003 | CatalogLookupBenchmarks.COS_CAT_003_MissAbsentBundleId | Resolve an absent bundle ID through the benchmark catalog | 1, 10, 100, 1,000 catalog entries |
 | COS-CAT-004 | CatalogLookupBenchmarks.COS_CAT_004_RejectVersionMismatch | Resolve an existing ID with a non-matching version | 1, 10, 100, 1,000 catalog entries |
 
+| Stable ID | Benchmark method | Measurement boundary | Workload parameters |
+|---|---|---|---|
 | COS-MAN-001 | ManifestBenchmarks.COS_MAN_001_BuildRootsAndConstructRuntimeManifest | Allocate root-entry array and construct RuntimeManifest inside the timed method | 1, 10, 100, 1,000 roots |
 | COS-MAN-002 | ManifestBenchmarks.COS_MAN_002_ConstructRuntimeManifestFromPreparedRoots | Construct RuntimeManifest from root entries prepared in global setup | 1, 10, 100, 1,000 roots |
 | COS-MAN-003 | StagedManifestValidationBenchmarks.COS_MAN_003_ValidateStagedRuntimeManifestLoadPlan | Validate a staged load plan against requested root IDs and versions; all manifest inputs prepared in global setup | 1, 10, 100, 1,000 roots |
@@ -55,7 +57,7 @@ Add each item as a separately named definition only after its workload contract 
 | Family | Planned coverage |
 |---|---|
 | COS-MAN | Empty-manifest fast path; staged-plan validation is now covered at 1, 10, 100, and 1,000 roots; immutable snapshot and validation overhead beyond this path |
-| COS-CAT | Catalog lookup success/miss, version match/mismatch, dictionary scale and lookup counts |
+| COS-CAT | Catalog lookup semantics are covered through 1,000 entries; larger capacity and repeated lookup-count scaling |
 | COS-DEP | Multiple roots, deep chains, shared dependency closure, duplicate roots, duplicate/conflicting versions |
 | COS-LOAD | Stateful Load callbacks now covered at 1, 10, 100, and 1,000 roots; configuration retrieval/copy, configuration size, load-order bookkeeping |
 | COS-ARB | Stable first-round arbitration, multi-round convergence, near-limit convergence and non-convergence/failure reporting |
