@@ -24,7 +24,7 @@ jobs:
       - name: Check out the default branch
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event_name == 'delete' && github.event.repository.default_branch || github.ref }}
+          ref: ${{ github.event.repository.default_branch || 'master' }}
           fetch-depth: 0
 
       - name: Evaluate every repository branch and update the living badge
