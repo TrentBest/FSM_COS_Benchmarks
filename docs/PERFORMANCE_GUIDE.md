@@ -91,6 +91,26 @@ The latest complete benchmark run, [#42136454656](https://github.com/TrentBest/F
 
 These are exploratory ShortRunJob measurements (three measured iterations) on a virtualized Windows 11 / Hyper-V runner. They establish that the workload executes and provide an initial scaling observation; they are not stable production baselines. In particular, the allocation growth should be investigated before treating staged validation as a frequent hot-path operation. Raw BenchmarkDotNet evidence is retained with the workflow artifact.
 
+## Latest expanded composition run
+
+The latest complete run, [#42167035105](https://github.com/TrentBest/FSM_COS_Benchmarks/actions/runs/42167035105), executed all 101 stable-ID cases and validated all 101 expected rows across 15 CSV reports. The harness commit was [`ffe495925401ea19e8d9e0fc7d456656402f5ec5`](https://github.com/TrentBest/FSM_COS_Benchmarks/commit/ffe495925401ea19e8d9e0fc7d456656402f5ec5); the FSM_COS source under test was `207b417a7958134bbc138374a5d077b707e1faf3`. The run used BenchmarkDotNet 0.15.2, `ShortRunJob(IterationCount=3, LaunchCount=1, WarmupCount=3)`, and a virtualized Windows 11 / Hyper-V runner.
+
+New composition observations from the retained raw artifact:
+
+| Workload | Parameters | Mean | Allocated per operation |
+|---|---:|---:|---:|
+| Deep dependency chain (COS-DEP-002) | 100 bundles | 77.63 µs | 758.48 KB |
+| Deep dependency chain (COS-DEP-002) | 1,000 bundles | 786.98 µs | 7,507.2 KB |
+| Deep dependency chain (COS-DEP-002) | 10,000 bundles | 16.91 ms | 74,968.15 KB |
+| Repeated identical root requests (COS-CMP-005) | 10 requests | 2.232 µs | 15.57 KB |
+| Repeated identical root requests (COS-CMP-005) | 100 requests | 6.555 µs | 17.68 KB |
+| Repeated identical root requests (COS-CMP-005) | 1,000 requests | 50.833 µs | 74.82 KB |
+| Conflicting versions for one root ID (COS-ERR-003) | 2 versions | 7.724 µs | 7.17 KB |
+
+The 10,000-bundle chain has a wide confidence interval (15.07 ms half-width) and should be treated as a coarse scaling signal, not a precise latency estimate. Its roughly 75 MB allocated per operation is nevertheless a clear target for investigation. The 1,000-bundle chain and independent-root workloads both allocate roughly 7.3–7.5 MB, while the duplicate-root workload grows much more slowly in allocation across repeated identical requests. That is evidence about these fixtures only; it does not establish general deduplication efficiency or retained-memory cost.
+
+These measurements are exploratory. They are not stable production baselines, and no timing thresholds should be inferred from this run. Raw BenchmarkDotNet CSV, Markdown, HTML, and environment evidence are retained in the run artifact.
+
 ## RuntimeAssembly lookup: position and miss costs
 
 The runtime-lookup suite now separates successful lookup position from misses. Run 40408424494 passed the harness's structural validation: 94 expected rows across 12 CSV reports. The artifact is retained for 90 days.
