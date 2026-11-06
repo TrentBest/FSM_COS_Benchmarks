@@ -58,7 +58,7 @@ Add each item as a separately named definition only after its workload contract 
 |---|---|
 | COS-MAN | Empty-manifest fast path; staged-plan validation is now covered at 1, 10, 100, and 1,000 roots; immutable snapshot and validation overhead beyond this path |
 | COS-CAT | Catalog lookup semantics are covered through 1,000 entries; larger capacity and repeated lookup-count scaling |
-| COS-DEP | Deep chains through 10,000 bundles, repeated identical roots, and conflicting root versions are now covered; multiple roots with overlapping dependency closures remain planned |
+| COS-DEP | Deep chains through 10,000 bundles are covered; multiple roots with overlapping dependency closures and broader dependency graph shapes remain planned |
 | COS-LOAD | Stateful Load callbacks now covered at 1, 10, 100, and 1,000 roots; configuration retrieval/copy, configuration size, load-order bookkeeping |
 | COS-ARB | Stable first-round arbitration, multi-round convergence, near-limit convergence and non-convergence/failure reporting |
 | COS-ERR | Conflicting root versions and missing root/dependency are now covered; invalid graph/cycle, load failure and rollback/compensation paths remain planned |
