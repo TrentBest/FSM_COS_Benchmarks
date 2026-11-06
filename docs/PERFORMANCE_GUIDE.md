@@ -117,4 +117,4 @@ The long-term objective is for every component to have a verifiable performance 
 The evidence should answer not merely "is it fast?" but "fast for what, under which conditions, at what cost, and compared to which equivalent implementation?"
 
 <!-- THE SINGULARITY WORKSHOP FOOTER -->
-<p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/Avatar.jpg" alt="The Singularity Workshop avatar" width="180" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/TheSingularityWorkshop.png" alt="The Singularity Workshop" width="180" /></p>
