@@ -17,13 +17,13 @@ This catalog names stable benchmark definitions and defines the identity/evidenc
 
 ## Implemented benchmark definitions
 
+| Stable ID | Benchmark method | Measurement boundary | Workload parameters |
+|---|---|---|---|
 | COS-CAT-001 | CatalogLookupBenchmarks.COS_CAT_001_ResolveExistingBundleById | Resolve a prepared existing bundle by ID through the dictionary-backed benchmark catalog | 1, 10, 100, 1,000 catalog entries |
 | COS-CAT-002 | CatalogLookupBenchmarks.COS_CAT_002_ResolveExistingBundleByMatchingVersion | Resolve a prepared existing bundle by ID and exact version | 1, 10, 100, 1,000 catalog entries |
 | COS-CAT-003 | CatalogLookupBenchmarks.COS_CAT_003_MissAbsentBundleId | Resolve an absent bundle ID through the benchmark catalog | 1, 10, 100, 1,000 catalog entries |
 | COS-CAT-004 | CatalogLookupBenchmarks.COS_CAT_004_RejectVersionMismatch | Resolve an existing ID with a non-matching version | 1, 10, 100, 1,000 catalog entries |
 
-| Stable ID | Benchmark method | Measurement boundary | Workload parameters |
-|---|---|---|---|
 | COS-MAN-001 | ManifestBenchmarks.COS_MAN_001_BuildRootsAndConstructRuntimeManifest | Allocate root-entry array and construct RuntimeManifest inside the timed method | 1, 10, 100, 1,000 roots |
 | COS-MAN-002 | ManifestBenchmarks.COS_MAN_002_ConstructRuntimeManifestFromPreparedRoots | Construct RuntimeManifest from root entries prepared in global setup | 1, 10, 100, 1,000 roots |
 | COS-MAN-003 | StagedManifestValidationBenchmarks.COS_MAN_003_ValidateStagedRuntimeManifestLoadPlan | Validate a staged load plan against requested root IDs and versions; all manifest inputs prepared in global setup | 1, 10, 100, 1,000 roots |
@@ -84,4 +84,4 @@ dotnet run --project .\FSM_COS_Benchmarks.csproj --configuration Release -- --fi
 The workflow retains BenchmarkDotNet artifacts, the run identity file, and environment report in a uniquely named artifact. No benchmark project is packed or published.
 
 <!-- THE SINGULARITY WORKSHOP FOOTER -->
-<p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/Avatar.jpg" alt="The Singularity Workshop avatar" width="180" /></p>
+<p align="center"><img src="https://raw.githubusercontent.com/TrentBest/FSM_API/master/Documentation/Branding/TheSingularityWorkshop.png" alt="The Singularity Workshop" width="180" /></p>
