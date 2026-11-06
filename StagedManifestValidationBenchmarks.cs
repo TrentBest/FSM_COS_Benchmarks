@@ -22,7 +22,7 @@ public class StagedManifestValidationBenchmarks
 
         var loadPlan = roots
             .Select(root => new RuntimeManifestEntry(
-                new MicroBundleReference(root.BundleId, root.Version, "benchmark-content-hash"),
+                new MicroBundleReference(root.BundleId, root.Version, new string('a', 64)),
                 ManifestLoadStage.Resident))
             .ToArray();
 
