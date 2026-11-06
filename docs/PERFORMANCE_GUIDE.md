@@ -78,6 +78,19 @@ Current policy:
 - Do not fail CI on timing changes until the baseline and regression policy can distinguish noise from a real regression.
 - Keep composition cost separate from per-frame/per-tick runtime cost. FSM_COS composes a runtime; the host owns the steady-state update loop.
 
+## Latest staged-manifest validation run
+
+The latest complete benchmark run, [#42136454656](https://github.com/TrentBest/FSM_COS_Benchmarks/actions/runs/42136454656), executed all 94 stable-ID cases successfully. It also confirms that the staged-manifest validation workload now produces valid results at all four configured sizes:
+
+| Requested roots | Mean | Allocated per operation |
+|---:|---:|---:|
+| 1 | 974.3 ns | 8.82 KB |
+| 10 | 4,227.3 ns | 10.52 KB |
+| 100 | 34,850.8 ns | 28.3 KB |
+| 1,000 | 320,017.4 ns | 251.27 KB |
+
+These are exploratory ShortRunJob measurements (three measured iterations) on a virtualized Windows 11 / Hyper-V runner. They establish that the workload executes and provide an initial scaling observation; they are not stable production baselines. In particular, the allocation growth should be investigated before treating staged validation as a frequent hot-path operation. Raw BenchmarkDotNet evidence is retained with the workflow artifact.
+
 ## RuntimeAssembly lookup: position and miss costs
 
 The runtime-lookup suite now separates successful lookup position from misses. Run 40408424494 passed the harness's structural validation: 94 expected rows across 12 CSV reports. The artifact is retained for 90 days.
