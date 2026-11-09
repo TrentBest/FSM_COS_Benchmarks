@@ -11,7 +11,7 @@
   ],
   "branch_count": 2,
   "status": "COMPLIANT",
-  "evaluated_at": "2026-11-08T11:19:22Z",
-  "workflow_run": "https://github.com/TrentBest/FSM_COS_Benchmarks/actions/runs/42475220602",
-  "triggering_commit": "40907cf964373406f7b243413c9b01a8f1f7c25e"
+  "evaluated_at": "2026-11-09T12:55:38Z",
+  "workflow_run": "https://github.com/TrentBest/FSM_COS_Benchmarks/actions/runs/42621029395",
+  "triggering_commit": "7e2ff80d08972be6e0fa6a4c237c761b2ffad1f4"
 }
