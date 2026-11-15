@@ -19,7 +19,7 @@ A dedicated, repeatable performance laboratory for **FSM_COS**: manifest constru
 
 ## Quick start
 
-Requires the .NET 8 SDK.
+Requires the .NET 10 SDK.
 
 ~~~powershell
 dotnet restore .\FSM_COS_Benchmarks.slnx
