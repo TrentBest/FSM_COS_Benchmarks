@@ -41,7 +41,7 @@ jobs:
       - name: Setup .NET 8
         uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4.3.1
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
 
       - name: Record unique run identity and environment
         shell: pwsh
@@ -70,7 +70,7 @@ jobs:
       - name: Run stable-ID benchmark suite
         shell: pwsh
         run: |
-          dotnet bin/Release/net8.0/FSM_COS_Benchmarks.dll --filter "*COS_*"
+          dotnet bin/Release/net10.0/FSM_COS_Benchmarks.dll --filter "*COS_*"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
           $reports = Get-ChildItem "BenchmarkDotNet.Artifacts/results/*-report.csv" -ErrorAction SilentlyContinue
